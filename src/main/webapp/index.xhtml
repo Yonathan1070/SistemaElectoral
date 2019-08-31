@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./masterPage.xhtml">
+
+            <ui:define name="content">
+                <p:growl id="msgs" showDetail="true" />
+                <span class="ui-float-label">
+                    <p:message for="documento" />
+                    <h:outputLabel for="documento" value="Documento: " style="font-weight:bold"/>
+                    <p:inputNumber id="documento" value="#{indexController.candidato.documento}" label="Documento">
+                        <f:validator validatorId="validacionDocumento" />
+                    </p:inputNumber>
+                </span><br/>
+                <span class="ui-float-label">
+                    <p:message for="nombres" />
+                    <h:outputLabel for="nombres" value="Nombres: " style="font-weight:bold"/>
+                    <p:inputText id="nombres" value="#{indexController.candidato.nombres}" label="Nombres" >
+                        <f:validator validatorId="validacionNombre" />
+                    </p:inputText>
+                </span><br/>
+                <span class="ui-float-label">
+                    <p:message for="apellidos" />
+                    <h:outputLabel for="apellidos" value="Apellidos: " style="font-weight:bold"/>
+                    <p:inputText id="apellidos" value="#{indexController.candidato.apellidos}" label="Apellidos" >
+                        <f:validator validatorId="validacionApellido" />
+                    </p:inputText>
+                </span><br/>
+                <span class="ui-float-label">
+                    <p:message for="fechaN" />
+                    <p:outputLabel for="fechaN" value="Fecha de Nacimiento: " style="font-weight:bold"/>
+                    <p:datePicker id="fechaN" value="#{indexController.candidato.fechaNacimiento}" label="Fecha de Nacimiento" pattern="dd/MM/yyyy" yearNavigator="true" yearRange="1930:2019" monthNavigator="true" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                        <f:validator validatorId="validacionFechaNacimiento" />
+                    </p:datePicker>
+                </span><br/>
+                <span class="ui-float-label">
+                    <p:message for="foto" />
+                    <h:outputLabel for="foto" value="Foto Tarjetón Virtual: " style="font-weight:bold"/>
+                    <p:fileUpload id="foto" update="msgs" mode="advanced" fileUploadListener="#{indexController.handleFileUpload}"
+                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" sizeLimit="10000000" auto="true"></p:fileUpload>
+                    <!--<p:graphicImage cache="false" height="200" width="200" id="dimage" library="images" name="#{indexController.candidato.fileName}" ></p:graphicImage>-->
+                </span><br/>
+                <span class="ui-float-label">
+                    <p:message for="descripcion" />
+                    <h:outputLabel for="descripcion" value="Descripción de la HV: " style="font-weight:bold"/><br></br>
+                    <p:inputTextarea id="descripcion" rows="5" cols="30" counter="display" maxlength="100" counterTemplate="{0} caracteres restantes." autoResize="false" value="#{indexController.candidato.descripcion}">
+                        <f:validator validatorId="validacionDescripcion" />
+                    </p:inputTextarea>
+                    <h:outputText id="display" />
+                </span><br/>
+                <p:commandButton value="Guardar" action="#{indexController.agregarCandidato()}" update="@form, lCandidatos, msgs" />
+                <br></br>
+                <br></br>
+                <br></br>
+                <p:dataTable id="lCandidatos" var="candidato" value="#{indexController.listaCandidatos}">
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{candidato.nombres}" />
+                    </p:column>
+
+                    <p:column headerText="Apellido">
+                        <h:outputText value="#{candidato.apellidos}" />
+                    </p:column>
+
+                    <p:column headerText="Descripcion HV">
+                        <h:outputText value="#{candidato.descripcion}" />
+                    </p:column>
+                </p:dataTable>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

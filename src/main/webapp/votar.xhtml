@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./masterPage.xhtml">
+
+            <ui:define name="content">
+                <p:growl id="msgs" showDetail="true" />
+                <p:dataTable id="eventsDT" var="candidato" value="#{votarController.index.listaCandidatos}" selectionMode="single" selection="#{votarController.candidatoSeleccionado}" rowKey="#{candidato.documento}">
+                    <f:facet name="header">
+                        Tabla de Candidatos
+                    </f:facet>
+                    <p:ajax event="rowSelect" listener="#{votarController.onRowSelect}" update=":form:msgs, eventsDT, form:votos" />
+                    <p:column headerText="Id" visible="false">
+                        <h:outputText value="#{candidato.documento}" />
+                    </p:column>
+                    <p:column>
+                        <h:graphicImage height="100px" width="100px" name="#{candidato.fileName}" />
+                    </p:column>
+                    <p:column headerText="Nombre Completo">
+                        <h:outputText value="#{candidato.nombres} #{candidato.apellidos}" />
+                    </p:column>
+                    <p:column headerText="Votos">
+                        <h:outputText value="#{candidato.votos}" />
+                    </p:column>
+                </p:dataTable>
+                <p:commandButton action="ganador?faces-redirect=true" value="Finalizar Votaciones" />
+                <p:chart id="votos" type="pie" model="#{votarController.pieModel}" style="width:800px;height:500px"/>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
