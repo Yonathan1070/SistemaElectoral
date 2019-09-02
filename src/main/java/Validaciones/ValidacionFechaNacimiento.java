@@ -19,13 +19,17 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
 /**
- *
- * @author Yonathan
+ * Declaracion de la clase ValidacionFechaNacimiento
+ * @author Yonathan Bohorquez
+ * @author Manuel Bohorquez
+ * @version 01-09-2019 1.0
  */
+//valor que se otorga a la clase para ser llamada como validacion en el campo FechaNacimiento del formulario
 @FacesValidator(value = "validacionFechaNacimiento")
 public class ValidacionFechaNacimiento implements Validator {
 
     @Override
+    //metodo de validacion del campo FechaNacimiento que valida que la fecha no sea mayor a la actual, que la edad sea mayor a 18 años y que el campo no quede nulo
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         if (value == null) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,

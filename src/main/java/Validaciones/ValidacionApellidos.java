@@ -13,12 +13,16 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
 /**
- *
- * @author Yonathan
+ * Declaracion de la clase ValidacionApellidos
+ * @author Yonathan Bohorquez
+ * @author Manuel Bohorquez
+ * @version 01-09-2019 1.0
  */
+//valor que se otorga a la clase para ser llamada como validacion en el campo apellidos del formulario
 @FacesValidator(value="validacionApellido")
 public class ValidacionApellidos implements Validator{
     @Override
+    //metodo de validacion del campo apellidos que valida mediante los valores ASCII el tipo de dato, el tamaño ingresado y que no sea nulo
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         String texto = String.valueOf(value);
         if(texto.isEmpty()){

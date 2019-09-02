@@ -25,15 +25,18 @@ import javax.servlet.ServletContext;
 import org.primefaces.event.FileUploadEvent;
 
 /**
- *
- * @author Yonathan
+ * declaracion de la clase IndexController
+ * @author Yonathan Bohorquez
+ * @author Manuel Bohorquez
+ * @version 1-09-2019 1.0
  */
 @ManagedBean
 @SessionScoped
 public class IndexController implements Serializable {
+    //Declaracion de los atributos privados de la clase
     private static List<Candidatos> listaCandidatos;
     private Candidatos candidato;
-
+    //constructor de la clase
     public IndexController() {
         listaCandidatos=new ArrayList();
         candidato = new Candidatos();
@@ -55,9 +58,10 @@ public class IndexController implements Serializable {
         this.candidato = candidato;
     }
     /**
-     * Creates a new instance of indexController
+     * Creacion nueva instancia de indexController
      * @param event
      */
+    //metodo que captura el evento del fileUPload y carga la imagen
     public void handleFileUpload(FileUploadEvent event) {
         try {
             candidato.setFileName(copyFile(event.getFile().getFileName(), event.getFile().getInputstream()));
@@ -65,7 +69,7 @@ public class IndexController implements Serializable {
         } catch (IOException e) {
         }
     }
-
+    //metodo que guarda la imagen en la carpeta resources
     public String copyFile(String fileName, InputStream in) {
         String nombreA="";
         try {
@@ -100,7 +104,7 @@ public class IndexController implements Serializable {
         }
         return nombreA;
     }
-
+    //metodo que agrega cada candidato con todos los datos solicitados
     public void agregarCandidato(){
         System.out.println("Documento: "+candidato.getDocumento()+"\nNombres: "+candidato.getNombres()+" "+candidato.getApellidos()+"\nFecha Nacimiento: "+candidato.getFechaNacimiento()+"\nRuta Foto: "+candidato.getFileName());
         

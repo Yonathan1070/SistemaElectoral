@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -15,18 +15,20 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 /**
- *
- * @author Yonathan
+ * declaracion de la clase GanadorController
+ * @author Yonathan Bohorquez
+ * @author Manuel Bohorquez
+ * @version 1-09-2019 1.0
  */
 @ManagedBean
 @RequestScoped
 public class GanadorController implements Serializable{
-    
+    //Declaracion de los atributos privados de la clase
     @ManagedProperty("#{indexController}")
     private IndexController index;
     private Candidatos candidato;
     /**
-     * Creates a new instance of GanadorController
+     * Creacion nueva instancia de GanadorController
      */
     public GanadorController() {
         this.candidato=new Candidatos();
@@ -47,7 +49,7 @@ public class GanadorController implements Serializable{
     public void setCandidato(Candidatos candidato) {
         this.candidato = candidato;
     }
-    
+    //metodo que trae la lista de candidatos, compara los votos de cada candidato y obtiene el de mayor numero
     public void obtenerGanador(){
         for(Candidatos candidatoL : index.getListaCandidatos()){
             if(this.candidato != null){
@@ -59,7 +61,7 @@ public class GanadorController implements Serializable{
             }
         }
     }
-    
+    //metodo que finaliza la sesion y vuelve al usuario al inicio del programa
     public void volver() throws IOException{
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
             .getExternalContext().getSession(false);

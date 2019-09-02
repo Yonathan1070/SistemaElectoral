@@ -16,19 +16,21 @@ import org.primefaces.event.SelectEvent;
 import org.primefaces.model.chart.PieChartModel;
 
 /**
- *
- * @author Yonathan
+ * declaracion de la clase VotarController
+ * @author Yonathan Bohorquez
+ * @author Manuel Bohorquez
+ * @version 1-09-2019 1.0
  */
 @ManagedBean
 @RequestScoped
 public class VotarController implements Serializable{
-
+    //Declaracion de los atributos privados de la clase
     @ManagedProperty("#{indexController}")
     private IndexController index;
     private Candidatos candidatoSeleccionado;
     private PieChartModel pieModel;
     /**
-     * Creates a new instance of VotarController
+     * Creacion nueva instancia de VotarController
      */
     public VotarController() {
     }
@@ -49,7 +51,7 @@ public class VotarController implements Serializable{
         this.candidatoSeleccionado = candidatoSeleccionado;
     }
     
-    
+    //metodo que trae la lista de candidatos y valida la accion de votar mostrando como mensaje el nombre del candidato por el que voto
     public void onRowSelect(SelectEvent event) {
         for (Candidatos candidato : index.getListaCandidatos()) {
             if(candidato.getDocumento().equals(((Candidatos) event.getObject()).getDocumento())){
@@ -60,7 +62,7 @@ public class VotarController implements Serializable{
             }
         }
     }
-    
+    //metodo que crea y muestra la grafica con los datos de los votos
     public PieChartModel getPieModel() {
         for (Candidatos candidato : index.getListaCandidatos()) {
             pieModel.set(candidato.getNombres()+" "+candidato.getApellidos(), candidato.getVotos());

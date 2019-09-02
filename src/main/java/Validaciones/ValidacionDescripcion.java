@@ -13,12 +13,16 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
 /**
- *
- * @author Yonathan
+ * Declaracion de la clase ValidacionDescripcion
+ * @author Yonathan Bohorquez
+ * @author Manuel Bohorquez
+ * @version 01-09-2019 1.0
  */
+//valor que se otorga a la clase para ser llamada como validacion en el campo descripcion del formulario
 @FacesValidator(value="validacionDescripcion")
 public class ValidacionDescripcion implements Validator{
     @Override
+    //metodo de validacion del campo descripcion que valida mediante los valores ASCII los datos ingresados y que el campo no quede nulo
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         String texto = String.valueOf(value);
         if(texto.isEmpty()){
